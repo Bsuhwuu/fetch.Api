@@ -1,182 +1,137 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jadwal Sholat</title>
-    <link rel="stylesheet" type="text/css" href="fetch.css" />
-  </head>
-  <body>
-    <div>
-      <h1>DAFTAR Jadwal Sholat</h1>
-    </div>
-    <div>
-      <form>
-        <label for="search">Masukkan Tanggal :</label>
-        <input type="text" id="search" placeholder="search" />
-      </form>
-    </div>
-    <div>
-      <table border="1">
-        <tbody>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>tanggal</th>
-              <th>shubuh</th>
-              <th>dzuhur</th>
-              <th>ashar</th>
-              <th>magrib</th>
-              <th>isya</th>
-            </tr>
-          </thead>
-        </tbody>
-      </table>
-    </div>
-
-    <script>
-      const tbody = document.querySelector("tbody");
-      const searchForm = document.getElementById("search");
-      let listkode = [];
-
-      const loadData = async () => {
-        try {
-          const url = await fetch(
-            "https://cdn.statically.io/gh/lakuapik/jadwalsholatorg/master/adzan/semarang/2019/12.json"
-          );
-          listkode = await url.json();
-          console.log(listkode);
-          loadKode(listkode);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-
-      const loadKode = (data) => {
-        let no = 1;
-        const output = data
-          .map((list) => {
-            return (
-              `
-                  <tr>
-                      <td>` +
-              no++ +
-              `</td>
-                      <td>${list.tanggal}</td>
-                      <td>${list.shubuh}</td>
-                      <td>${list.dzuhur}</td>
-                      <td>${list.ashr}</td>
-                      <td>${list.magrib}</td>
-                      <td>${list.isya}</td>
-                  </tr>
-                  `
-            );
-          })
-          .join("");
-        tbody.innerHTML = output;
-      };
-
-      searchForm.addEventListener("keyup", (e) => {
-        const value = e.target.value.toLowerCase();
-        const input = listkode.filter((data) => {
-          return data.tanggal.toLowerCase().includes(value);
-        });
-        loadUserData(input);
-      });
-
-      loadData();
-    </script>
-  </body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jadwal sholat</title>
-    <link rel="stylesheet" type="text/css" href="fetch.css" />
-  </head>
-  <body>
-    <div>
-      <h1>DAFTAR Jadwal Sholat</h1>
-    </div>
-    <div>
-      <form>
-        <label for="search">Masukkan Jadwal Tanggal </label>
-        <input type="text" id="search" placeholder="search" />
-      </form>
-    </div>
-    <div>
-      <table border="1">
-        <tbody>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>tanggal</th>
-              <th>shubuh</th>
-              <th>dzuhur</th>
-              <th>ashar</th>
-              <th>magrib</th>
-              <th>isya</th>
-            </tr>
-          </thead>
-        </tbody>
-      </table>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 60%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DAFTAR Jadwal Sholat</h1>
+        <div>
+            <form>
+                <label for="search">Masukkan Jadwal Tanggal </label>
+                <input type="text" id="search" placeholder="Cari tanggal...">
+            </form>
+        </div>
+        <div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Shubuh</th>
+                        <th>Dzuhur</th>
+                        <th>Ashar</th>
+                        <th>Magrib</th>
+                        <th>Isya</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-      const tbody = document.querySelector("tbody");
-      const searchForm = document.getElementById("search");
-      let listKode = [];
+        const tbody = document.querySelector("tbody");
+        const searchForm = document.getElementById("search");
+        let listKode = [];
 
-      const loadData = async () => {
-        try {
-          const url = await fetch(
-            "https://cdn.statically.io/gh/lakuapik/jadwalsholatorg/master/adzan/semarang/2019/12.json"
-          );
-          listKode = await url.json();
-          console.log(listKode);
-          loadUserData(listKode);
-        } catch (err) {
-          console.log(err);
-        }
-      };
+        const loadData = async () => {
+            try {
+                const url = await fetch(
+                    "https://cdn.statically.io/gh/lakuapik/jadwalsholatorg/master/adzan/semarang/2019/12.json"
+                );
+                listKode = await url.json();
+                console.log(listKode);
+                loadUserData(listKode);
+            } catch (err) {
+                console.log(err);
+            }
+        };
 
-      const loadUserData = (data) => {
-        let no = 1;
-        const output = data
-          .map((el) => {
-            return (
-              `
-                  <tr>
-                      <td>` +
-              no++ +
-              `</td>
-                    <td>${el.tanggal}</td>
-                      <td>${el.shubuh}</td>
-                      <td>${el.dzuhur}</td>
-                      <td>${el.ashr}</td>
-                      <td>${el.magrib}</td>
-                      <td>${el.isya}</td>
-                  </tr>
-                  `
-            );
-          })
-          .join("");
-        tbody.innerHTML = output;
-      };
+        const loadUserData = (data) => {
+            let no = 1;
+            const output = data.map((el) => {
+                return `
+                    <tr>
+                        <td>${no++}</td>
+                        <td>${el.tanggal}</td>
+                        <td>${el.shubuh}</td>
+                        <td>${el.dzuhur}</td>
+                        <td>${el.ashr}</td>
+                        <td>${el.magrib}</td>
+                        <td>${el.isya}</td>
+                    </tr>
+                `;
+            }).join("");
+            tbody.innerHTML = output;
+        };
 
-      searchForm.addEventListener("keyup", (e) => {
-        const value = e.target.value.toLowerCase();
-        const input = listKode.filter((data) => {
-          return data.tanggal.toLowerCase().includes(value);
+        searchForm.addEventListener("keyup", (e) => {
+            const value = e.target.value.toLowerCase();
+            const input = listKode.filter((data) => {
+                return data.tanggal.toLowerCase().includes(value);
+            });
+            loadUserData(input);
         });
-        loadUserData(input);
-      });
 
-      loadData();
+        loadData();
     </script>
-  </body>
+</body>
 </html>
